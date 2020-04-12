@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, StyleSheet, TextInput, TouchableHighlight, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from 'react-native-vector-icons';
@@ -8,7 +8,7 @@ import {Calendar} from 'react-native-calendars';
 function Review() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Review!</Text>
+      <Text>// Put review here</Text>
     </View>
   );
 }
@@ -16,9 +16,9 @@ function Review() {
 function Paperdoll() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      
+    
       <Image style={{height:600, width:320}} source={require('./assets/frontview.png')}/>
-
+      
     </View>
   );
 }
@@ -42,14 +42,14 @@ function Settings() {
       // Handler which gets executed when visible month changes in calendar. Default = undefined
       onMonthChange={(month) => {console.log('month changed', month)}}
       // Hide month navigation arrows. Default = false
-      hideArrows={true}
+      hideArrows={false}
       // Replace default arrows with custom ones (direction can be 'left' or 'right')
-      renderArrow={(direction) => (<Arrow/>)}
+      //renderArrow={(direction) => (<Arrow/>)}
       // Do not show days of other months in month page. Default = false
       hideExtraDays={true}
       // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
       // day from another month that is visible in calendar page. Default = false
-      disableMonthChange={true}
+      disableMonthChange={false}
       // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
       firstDay={1}
       // Hide day names. Default = false
@@ -68,17 +68,35 @@ function Settings() {
   );
 }
 
+function Journal(){
+  return(
+    <View>
+        <View style={{flexDirection:"row"}}>
+              <View style={{flex:1}}>
+                <TextInput placeholder = "Label" style={{justifyContent: 'flex-start',}} />
+              </View>
+              <View style={{flex:1}}>
+                <TextInput placeholder = "Unit" style={{justifyContent: 'flex-start',}} />
+              </View>
+              <View style={{flex:1}}>
+                <Button title = "Add" style={{justifyContent: 'flex-start',}}></Button>
+              </View>
+          </View>
+      </View>
+  );
+}
+
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Review"
+      initialRouteName="Paperdoll"
       tabBarOptions={{
         activeTintColor: '#e91e63',
       }}
     >
-      <Tab.Screen
+    <Tab.Screen
     name="Paperdoll"
     component={Paperdoll}
     options={{
@@ -87,7 +105,17 @@ function MyTabs() {
         <MaterialCommunityIcons name="account" color={color} size={size} />
       ),
     }}
-  />
+    />
+    <Tab.Screen
+      name="Journal"
+      component={Journal}
+      options={{
+        tabBarLabel: 'Journal',
+        tabBarIcon: ({ color, size }) => (
+        <MaterialCommunityIcons name="book-open" color={color} size={size} />
+        ),
+      }}
+    />
       <Tab.Screen
         name="Review"
         component={Review}
